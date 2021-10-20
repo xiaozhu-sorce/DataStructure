@@ -44,14 +44,14 @@ void get_next(SString S,int next[]){
 
 //暴力枚举
 void get_next_bf(SString S,int next[]){
-    int i,len,j;
-    for( i = 1 ; S[i] != '\0' ; i++ ){//计算[0,i]的最大真前后缀的长度 
-		for( len = i-1 ; len >= 1 ; len-- ){
-			for( j = 1 ; j < len ; j++ ){ //比较[0,len-1]和[i-len+1,i] 
-				if( S[j] != S[i-len+j] )  break;
+    int i,k,j;
+    for( i = 1 ; S[i] != '\0' ; i++ ){//计算[1,i]的最大真前后缀的长度 
+		for( k =   i-1 ; k >= 1 ; k-- ){
+			for( j = 1 ; j < k ; j++ ){ //比较[1,k-1]和[i-k+1,i] 
+				if( S[j] != S[i-k+j] )  break;
 			}
-			if( j == len ){
-				next[i] = len;
+			if( j == k ){
+				next[i] = k;
 				break;
 			} 
 		}	
@@ -82,9 +82,14 @@ int KMP(SString S,SString P,int pos,int next[]){
 
 int main(){
     int i,*p;
+    char a[MAX_STR_LEN],b[MAX_STR_LEN];
+    cout<<"请输入a的值:";
+    cin>>a;
+    cout<<"请输入b的值:";
+    cin>>b;
     SString source,pattern;
-    StrAssign(source,"ababcac");
-    StrAssign(pattern,"abcac");
+    StrAssign(source,a);
+    StrAssign(pattern,b);
     int sum1,sum2,sum3;
     p = (int *)malloc((StrLength(pattern)+1)*sizeof(int));
     sum1 = Index(source,pattern,1);
