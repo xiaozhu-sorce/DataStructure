@@ -1,3 +1,8 @@
 #include"base.h"
 #include"data.h"
-#include"operate.cpp"
+#include"mallFunc.cpp"
+#include"fileFunc.cpp"
+
+int main(){
+    
+}

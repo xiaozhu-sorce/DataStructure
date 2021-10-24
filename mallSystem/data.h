@@ -1,11 +1,13 @@
-#define MAX_STR_LEN 40
-
-typedef char NString[MAX_STR_LEN + 1];
+struct HString
+{
+    char *ch;
+    int length;
+};
 
 struct Data
 {
     int number;
-    NString name;
+    HString name;
     int stock;
     float purchasingPrice;
     float sellingPrice;

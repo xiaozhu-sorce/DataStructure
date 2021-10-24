@@ -1,6 +1,3 @@
-#include"data.h"
-#include"base.h"
-
 //添加商品的信息
 void GoodsAddInfo(Goods &good,int number,NString n,int s,float input,float output);
 //初始化链表
