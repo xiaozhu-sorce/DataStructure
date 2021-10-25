@@ -1,6 +1,3 @@
-#include"data.h"
-#include"base.h"
-
 #define DestroyString ClearString
 
 // 初始化(产生空串)字符串T。另加 T.length=0;

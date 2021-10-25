@@ -1,6 +1,9 @@
+#include"base.h"
+#include"data.h"
+
 //添加商品的信息
-void GoodsAddInfo(Goods &good,int number,NString n,int s,float input,float output);
-//初始化链表
+void GoodsAddInfo(Goods &good,int number,SString n,int s,float input,float output);
+//初始化循环链表
 void InitList(LinkList &L);
 //销毁链表
 void DestroyList(LinkList &L);
@@ -24,10 +27,10 @@ void ListAdd(LinkList &L,Goods e);
 
 
 //添加商品的信息
-void GoodsAddInfo(Goods &good,int number,NString n,int s,float input,float output)
+void GoodsAddInfo(Goods &good,int number,const char n[],int s,float input,float output)
 {
     good = (Goods)malloc(sizeof(Goods));
-    good->number = number;
+    good->ID = number;
     strcpy(good->name,n);
     good ->stock = s;
     good ->purchasingPrice = input;
@@ -147,7 +150,7 @@ void showList(LinkList &L)
 //输出货品的信息
 void showGood(Goods &good)
 {
-    cout<< good->number<< " "<<good->name<< " "<<good->stock<< " "<< good->purchasingPrice<< " "<< good->sellingPrice<<endl;
+    cout<< good->ID<< " "<<good->name<< " "<<good->stock<< " "<< good->purchasingPrice<< " "<< good->sellingPrice<<endl;
 }
 
 //在链表的尾部插入商品信息；

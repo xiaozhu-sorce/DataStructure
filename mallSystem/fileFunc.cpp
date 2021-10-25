@@ -1,5 +1,3 @@
-#include"base.h"
-#include"data.h"
 #include"stringFunc.cpp"
 
 #define MAX_LEN 25 // 文件最大行数
@@ -18,13 +16,13 @@ void Open()
         printf("已存在打开的文件\n");
     else {
         printf("请输入文件名(可包括盘符、路径，不超过%d个字符): ",NAME_LEN-1); 
-        scanf("%s",filename);
+        cin>>filename;
         fp=fopen(filename,"r"); // 以读的方式打开文件
         if(fp) // 已存在此文件
         {
-            while(fgets(str,LINE_LEN,fp)) // 由文件读入1行字符成功 
+            while(fgets(str,LINE_LEN,fp)) // 由文件读入1行字符存储到str中 
             {
-                str[strlen(str)-1]=0; // 将换行符10强制改为串结束符0 
+                // str[strlen(str)-1]=0; // 将换行符10强制改为串结束符0 
                 if(n>=MAX_LEN)
                 {
                     printf("文件太大\n");
@@ -46,7 +44,7 @@ void List()
     int i;
     for(i=0;i<n;i++)
     {
-        printf("%d: ",i+1);
+        printf("%3d| ",i+1);
         StrPrint(T[i]);
     }
 }
@@ -70,7 +68,7 @@ void Insert()
         printf("请顺序输入待插入内容:\n"); 
         for(i=l-1;i<l-1+m;i++)
         {
-            gets(str);
+            cin >> str;
             InitString(T[i]);
             StrAssign(T[i],str);
         } 
@@ -98,8 +96,9 @@ void Delete()
     else printf("行超出范围\n");
 }
 
+// 拷贝行
 void Copy()
-{ // 拷贝行
+{ 
     int i,l,m,k; printf("把第l行开始的m行插在原k行之前,请输入l m k: "); 
     scanf("%d%d%d",&l,&m,&k);
     if(n+m>MAX_LEN)
@@ -124,17 +123,17 @@ void Copy()
 }
 
 // 修改行 
-void modify()
+void Modify()
 { 
     int i;
     printf("请输入待修改的行号: "); 
     scanf("%d%*c",&i); 
-    if(i>0&&i<=n) // 行号合法
+    if(i>0&&i<=n)
     {
         printf("%d: ",i); 
         StrPrint(T[i-1]); 
         printf("请输入新内容: "); 
-        gets(str); 
+        cin >> str;
         StrAssign(T[i-1],str);
     } else
     printf("行号超出范围\n"); 
@@ -170,7 +169,7 @@ void Search()
             }
         } 
     }
-    if(f) printf("没找到\n");
+    if(f) printf("未能查找到您所需要查找的关键字\n");
 }
 
 

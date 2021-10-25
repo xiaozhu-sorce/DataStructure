@@ -1,3 +1,5 @@
+typedef char SString[20];
+
 struct HString
 {
     char *ch;
@@ -6,8 +8,8 @@ struct HString
 
 struct Data
 {
-    int number;
-    HString name;
+    int ID;
+    SString name;
     int stock;
     float purchasingPrice;
     float sellingPrice;
@@ -20,4 +22,4 @@ struct Node
 };
 
 typedef Data *Goods;
-typedef Node *LinkList;
+typedef Node *LinkList,*cart;//（购物车）
