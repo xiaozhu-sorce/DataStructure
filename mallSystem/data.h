@@ -8,11 +8,11 @@ struct HString
 
 struct Data
 {
-    int ID;
+    SString ID;
     SString name;
-    int stock;
-    float purchasingPrice;
-    float sellingPrice;
+    SString stock;
+    double purchasingPrice;
+    double sellingPrice;
 };
 
 struct Node

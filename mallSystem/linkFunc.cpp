@@ -1,8 +1,5 @@
-#include"base.h"
-#include"data.h"
-
 //添加商品的信息
-void GoodsAddInfo(Goods &good,int number,SString n,int s,float input,float output);
+//void GoodsAddInfo(Goods &good,const char number[],const char n[],const char s[],double input,double output);
 //初始化循环链表
 void InitList(LinkList &L);
 //销毁链表
@@ -22,30 +19,23 @@ void showList(LinkList &L);
 //输出货品的信息
 void showGood(Goods &good);
 //在链表的尾部插入商品信息；
-void ListAdd(LinkList &L,Goods e);
+void AddGood(LinkList &L,const char number[],const char n[],const char s[],double input,double output);
 
-
-
-//添加商品的信息
-void GoodsAddInfo(Goods &good,int number,const char n[],int s,float input,float output)
-{
-    good = (Goods)malloc(sizeof(Goods));
-    good->ID = number;
-    strcpy(good->name,n);
-    good ->stock = s;
-    good ->purchasingPrice = input;
-    good -> sellingPrice = output;
-}
 
 //初始化循环链表
 void InitList(LinkList &L)
 {
-    L = (LinkList)malloc(sizeof(LinkList));
-    Goods da = (Goods)malloc(sizeof(Goods));
-    if(!L)
+    L = (LinkList)malloc(sizeof(Node));
+    Goods d = (Goods)malloc(sizeof(Data));
+    if(!L && !d)
         exit(OVERFLOW);
-    GoodsAddInfo(da,0,"无商品",0,0.0,0.0);
-    L->data = da;
+    // AddGood(L,"000","无商品","000",0.0,0.0);
+    // strcpy(d->ID,"000");
+    // strcpy(d->name,"无商品");
+    // strcpy(d->stock,s);
+    // d->purchasingPrice = input;
+    // d->sellingPrice = output;
+    L->data = NULL;
     L->next=L;//循环
 }
 
@@ -150,17 +140,35 @@ void showList(LinkList &L)
 //输出货品的信息
 void showGood(Goods &good)
 {
-    cout<< good->ID<< " "<<good->name<< " "<<good->stock<< " "<< good->purchasingPrice<< " "<< good->sellingPrice<<endl;
+    cout<< good->ID<< " "<<good->name<< " "<< good->stock << " "<< good->purchasingPrice<< " "<< good->sellingPrice<<endl;
 }
 
 //在链表的尾部插入商品信息；
-void ListAdd(LinkList &L,Goods e)
+void AddGood(LinkList &L,const char number[],const char n[],const char s[],double input,double output)
 {
     L->next->data++;
-    LinkList p = L->next,s;
-    s= (LinkList)malloc(sizeof(LinkList));
-    s->data = e;
-    s->next = p;
-    L->next = s;
+    LinkList p = L->next,m;
+    Goods e;
+    m = (LinkList)malloc(sizeof(Node));
+    e = (Goods)malloc(sizeof(Data));
+
+    strcpy(e->ID,number);
+    strcpy(e->name,n);
+    strcpy(e->stock,s);
+    e->purchasingPrice = input;
+    e->sellingPrice = output;
+    m->data = e;
+    m->next = p;
+    L->next = m;
     L = L->next;
 }
+
+// //添加商品的信息
+// void GoodsAddInfo(Goods &good,const char number[],const char n[],const char s[],float input,float output)
+// {
+//     strcpy(good->ID,number);
+//     strcpy(good->name,n);
+//     strcpy(good->stock,s);
+//     good->purchasingPrice = input;
+//     good->sellingPrice = output;
+// }

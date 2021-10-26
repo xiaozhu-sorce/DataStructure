@@ -1,6 +1,17 @@
 {
     "files.associations": {
         "iostream": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "exception": "cpp",
+        "stack": "cpp",
+        "*.tcc": "cpp",
+        "cmath": "cpp",
+        "fstream": "cpp",
+        "bitset": "cpp",
+        "sstream": "cpp",
+        "__locale": "cpp",
+        "__string": "cpp",
+        "string": "cpp",
+        "string_view": "cpp"
     }
 }

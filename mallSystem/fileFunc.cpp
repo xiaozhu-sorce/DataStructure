@@ -1,41 +1,33 @@
 #include"stringFunc.cpp"
-
-#define MAX_LEN 25 // 文件最大行数
+#include"linkFunc.cpp"
+#define MAX_LEN 30 // 文件最大行数
 #define LINE_LEN 75 // 每行字符数最大值+1
 #define NAME_LEN 20 // 文件名最大长度(包括盘符、路径)+1
 
 HString T[MAX_LEN];
 char str[LINE_LEN],filename[NAME_LEN]="";
 FILE *fp;
-int n=0; // 文本行数
+int n=1; // 文本行数
 
 // 打开文件(新或旧)
 void Open()
 { 
-    if(filename[0]) // 文件已打开 
-        printf("已存在打开的文件\n");
-    else {
-        printf("请输入文件名(可包括盘符、路径，不超过%d个字符): ",NAME_LEN-1); 
-        cin>>filename;
-        fp=fopen(filename,"r"); // 以读的方式打开文件
-        if(fp) // 已存在此文件
+    fp=fopen(filename,"r"); // 以读的方式打开文件
+    if(fp) // 已存在此文件
+    {
+        while(fgets(str,LINE_LEN,fp)) // 由文件读入1行字符存储到str中 
         {
-            while(fgets(str,LINE_LEN,fp)) // 由文件读入1行字符存储到str中 
+            // str[strlen(str)-1]=0; // 将换行符10强制改为串结束符0 
+            if(n>=MAX_LEN)
             {
-                // str[strlen(str)-1]=0; // 将换行符10强制改为串结束符0 
-                if(n>=MAX_LEN)
-                {
-                    printf("文件太大\n");
-                    return; 
-                }
-                StrAssign(T[n],str);
-                n++; 
+                printf("文件太大\n");
+                return; 
             }
-            fclose(fp); // 关闭文件 
+            StrAssign(T[n],str);
+            n++; 
         }
-        else 
-            printf("新文件\n");
-    } 
+        fclose(fp); // 关闭文件 
+    }
 }
 
 // 显示文本内容 
@@ -99,7 +91,8 @@ void Delete()
 // 拷贝行
 void Copy()
 { 
-    int i,l,m,k; printf("把第l行开始的m行插在原k行之前,请输入l m k: "); 
+    int i,l,m,k; 
+    printf("把第l行开始的m行插在原k行之前,请输入l m k: "); 
     scanf("%d%d%d",&l,&m,&k);
     if(n+m>MAX_LEN)
     {
@@ -226,11 +219,57 @@ void Save()
         for(i=0;i<n;i++)
         { // 依次将每行存入文件
             for(j=0;j<T[i].length;j++) // 依次存入每个字符 
-            fputc(T[i].ch[j],fp);
-            fputc(10,fp); // 存入换行符
+                fputc(T[i].ch[j],fp);
+            // fputc(10,fp); // 存入换行符
             ClearString(T[i]); // 释放串空间 
         }
         fclose(fp); // 关闭文件 
     }
     else printf("存盘失败\n");
+}
+
+
+// 使用链表读取文件内部信息，将其中一行的数据存放在一个链表的节点中
+void getInfo(LinkList &L)
+{
+    int i,j = 0;
+    HString P[n];
+    Goods g;
+    g = L->data;
+    
+    for(i=0;i<n;i++)
+    {
+        InitString(P[i]);
+        P[i].ch=(char*)malloc(T[2].length*sizeof(char)); // 分配串空间 
+        if(!P[i].ch) // 分配串空间失败
+            exit(OVERFLOW); 
+    }
+
+    for(i=0;i<5;i++)
+    {
+        StrCat(T[3],P[i]);
+        cout<<"debug:";
+        StrPrint(P[i]);
+    }
+
+    while (j <= i)
+    {
+        switch (j)
+        {
+        case 0: strcpy(g->ID,P[i].ch);
+            break;
+        case 1: strcpy(g->name,P[i].ch);
+            break;
+        case 2: strcpy(g->stock,P[i].ch);
+            break;
+        case 3: g->purchasingPrice=atof(P[i].ch);
+            break;
+        case 4: g->sellingPrice=atof(P[i].ch);
+            break;
+        default:
+            break;
+        }
+    }
+    AddGood(L,g->ID,g->name,g->stock,g->purchasingPrice,g->sellingPrice);
+    
 }
