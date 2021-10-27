@@ -96,13 +96,11 @@ int main()
         InitList(La);
         AddGood(La,"001","牛奶","10",2.11,4.22);
         AddGood(La,"002","雪饼","20",3.33,6.66);
-        showList(La);
+        // showList(La);
         strcpy(filename,"comInCus.txt");
         Open();
         List();
-        cout<<endl;
         getInfo(La);
         showList(La);
-        Save(); 
         return 0;
 }

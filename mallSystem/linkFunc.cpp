@@ -1,3 +1,4 @@
+
 //添加商品的信息
 //void GoodsAddInfo(Goods &good,const char number[],const char n[],const char s[],double input,double output);
 //初始化循环链表
@@ -26,8 +27,7 @@ void AddGood(LinkList &L,const char number[],const char n[],const char s[],doubl
 void InitList(LinkList &L)
 {
     L = (LinkList)malloc(sizeof(Node));
-    Goods d = (Goods)malloc(sizeof(Data));
-    if(!L && !d)
+    if(!L)
         exit(OVERFLOW);
     // AddGood(L,"000","无商品","000",0.0,0.0);
     // strcpy(d->ID,"000");

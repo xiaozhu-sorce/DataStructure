@@ -1,3 +1,4 @@
+
 #include"stringFunc.cpp"
 #include"linkFunc.cpp"
 #define MAX_LEN 30 // 文件最大行数
@@ -8,6 +9,27 @@ HString T[MAX_LEN];
 char str[LINE_LEN],filename[NAME_LEN]="";
 FILE *fp;
 int n=1; // 文本行数
+
+// 打开文件(新或旧)
+void Open();
+// 显示文本内容 
+void List();
+// 插入行
+void Insert();
+// 删除行
+void Delete();
+// 拷贝行
+void Copy();
+// 修改行 
+void Modify();
+// 查找字符串
+void Search();
+// 替换字符串
+void Replace();
+// 存盘 
+void Save();
+// 使用链表读取文件内部信息，将其中一行的数据存放在一个链表的节点中
+void getInfo(LinkList &L);
 
 // 打开文件(新或旧)
 void Open()
@@ -34,9 +56,9 @@ void Open()
 void List()
 { 
     int i;
-    for(i=0;i<n;i++)
+    for(i=1;i<n;i++)
     {
-        printf("%3d| ",i+1);
+        printf("%3d| ",i);
         StrPrint(T[i]);
     }
 }
@@ -165,9 +187,9 @@ void Search()
     if(f) printf("未能查找到您所需要查找的关键字\n");
 }
 
-
+// 替换字符串
 void Replace()
-{ // 替换字符串
+{
     int i,k,f=1; // f为继续替换标志
     char b[2];
     HString s,t; 
@@ -233,43 +255,43 @@ void Save()
 void getInfo(LinkList &L)
 {
     int i,j = 0;
-    HString P[n];
-    Goods g;
-    g = L->data;
+    char *P;
+    char Pi[5][10];
     
-    for(i=0;i<n;i++)
-    {
-        InitString(P[i]);
-        P[i].ch=(char*)malloc(T[2].length*sizeof(char)); // 分配串空间 
-        if(!P[i].ch) // 分配串空间失败
-            exit(OVERFLOW); 
-    }
-
+    // for(i=0;i<n;i++)
+    // {
+    //     InitString(P[i]);
+    //     P[i].ch=(char*)malloc(T[2].length*sizeof(char)); // 分配串空间 
+    //     if(!P[i].ch) // 分配串空间失败
+    //         exit(OVERFLOW); 
+    // }
+    P = (char *)malloc(10*sizeof(char));
+    if(!P)
+        exit(OVERFLOW);
     for(i=0;i<5;i++)
     {
-        StrCat(T[3],P[i]);
-        cout<<"debug:";
-        StrPrint(P[i]);
+        StrCat(T[4],P);
+        strcpy(Pi[i],P);
+        cout<<i<<" "<<Pi[i]<<endl;
     }
 
-    while (j <= i)
-    {
-        switch (j)
-        {
-        case 0: strcpy(g->ID,P[i].ch);
-            break;
-        case 1: strcpy(g->name,P[i].ch);
-            break;
-        case 2: strcpy(g->stock,P[i].ch);
-            break;
-        case 3: g->purchasingPrice=atof(P[i].ch);
-            break;
-        case 4: g->sellingPrice=atof(P[i].ch);
-            break;
-        default:
-            break;
-        }
-    }
-    AddGood(L,g->ID,g->name,g->stock,g->purchasingPrice,g->sellingPrice);
-    
+    // while (j <= i)
+    // {
+    //     switch (j)
+    //     {
+    //     case 0: strcpy(g->ID,P);
+    //         break;
+    //     case 1: strcpy(g->name,P);
+    //         break;
+    //     case 2: strcpy(g->stock,P);
+    //         break;
+    //     case 3: g->purchasingPrice=atof(P);
+    //         break;
+    //     case 4: g->sellingPrice=atof(P);
+    //         break;
+    //     default:
+    //         break;
+    //     }
+    // }
+    AddGood(L,Pi[0],Pi[1],Pi[2],atof(Pi[3]),atof(Pi[4]));
 }

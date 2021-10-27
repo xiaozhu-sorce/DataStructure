@@ -231,21 +231,29 @@ void StrPrint(HString T)
 }
 
 // 将串T以'|'字符分割为两个字符串
-void StrCat(HString &T,HString &S)
+void StrCat(HString &T,char *S)
 {
     int i,j,k=0;
     for(i=0;i<T.length;i++)
     {
-        S.ch[i] = T.ch[i];
         if(T.ch[i] == '|')
         {
             break;
         }
+        S[i] = T.ch[i];
     }
 
     for(j=i+1;j<T.length;j++)
     {
         T.ch[k++] = T.ch[j];
     }
+    for(j=i;j<T.length;j++)
+    {
+        if(S[j] != ' ')
+            S[j]=' ';
+        else   
+            break;
+    }
     T.length -=i;
+    T.length--;
 }
