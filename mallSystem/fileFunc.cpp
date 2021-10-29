@@ -258,26 +258,22 @@ void getInfo(LinkList &L)
     char *Pi[5];
     HString P;
     
-    // for(i=0;i<n;i++)
-    // {
-    //     InitString(P[i]);
-    //     P[i].ch=(char*)malloc(T[2].length*sizeof(char)); // 分配串空间 
-    //     if(!P[i].ch) // 分配串空间失败
-    //         exit(OVERFLOW); 
-    // }
-    
-    for(i = 0;i<n;i++)
+    for(i = 1;i<n;i++)
     {
         for(j=0;j<5;j++)
         {
             InitString(P);
-            P.ch = (char *)malloc(StrLength(T[4])/4*sizeof(char));
-            Pi[j] = (char *)malloc(StrLength(T[4])/4*sizeof(char));
+            P.ch = (char *)malloc(StrLength(T[i])/4*sizeof(char));
+            Pi[j] = (char *)malloc(StrLength(T[i])/4*sizeof(char));
             if(!P.ch)
                 exit(OVERFLOW);
             StrCat(T[i],P);
             StrConvert(P,Pi[j]);
         }
-        AddGood(L,Pi[0],Pi[1],Pi[2],atof(Pi[3]),atof(Pi[4]));
+        if(i == 1)
+            cout<<Pi[0]<<"\t"<<Pi[1]<<"\t"<<Pi[2]<<"\t"<<Pi[3]<<"\t"<<Pi[4];
+        else
+            AddGood(L,Pi[0],Pi[1],Pi[2],atof(Pi[3]),atof(Pi[4]));
+
     }
 }

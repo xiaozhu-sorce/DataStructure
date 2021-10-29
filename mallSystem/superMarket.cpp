@@ -94,7 +94,7 @@ int main()
 
         LinkList La;
         InitList(La);
-        strcpy(filename,"comInCus.txt");
+        strcpy(filename,"comInMall.txt");
         Open();
         List();
         getInfo(La);

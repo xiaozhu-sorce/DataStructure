@@ -1,6 +1,3 @@
-
-//添加商品的信息
-//void GoodsAddInfo(Goods &good,const char number[],const char n[],const char s[],double input,double output);
 //初始化循环链表
 void InitList(LinkList &L);
 //销毁链表
@@ -134,7 +131,7 @@ void showList(LinkList &L)
 //输出货品的信息
 void showGood(Goods &good)
 {
-    cout<< good->ID<< "\t"<<good->name<< "\t"<< good->stock << "\t"<< good->purchasingPrice<< "\t"<< good->sellingPrice<<endl;
+    cout<< good->ID<< "\t"<<good->name<< "\t\t"<< good->stock << "\t"<< good->purchasingPrice<< "\t"<< good->sellingPrice<<endl;
 }
 
 //在链表的尾部插入商品信息；
