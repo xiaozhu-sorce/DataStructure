@@ -60,6 +60,22 @@ void StrAssign(HString &T,char *chars)
     } 
 }
 
+//生成一个其值等于T.ch的字符串chars
+void StrConvert(HString &T,char *chars)
+{
+    int len = T.length;
+    if(strlen(chars)!=0)
+        free(chars);
+    chars = (char *)malloc(len*sizeof(char));
+    if(!chars)
+        exit(OVERFLOW);
+    for (int i = 0; i < len; i++)
+    {   
+        chars[i] = T.ch[i];
+    }
+
+}
+
 //由串S复制得串T 
 void StrCopy(HString &T,HString S)
 { 
@@ -231,7 +247,7 @@ void StrPrint(HString T)
 }
 
 // 将串T以'|'字符分割为两个字符串
-void StrCat(HString &T,char *S)
+void StrCat(HString &T,HString &S)
 {
     int i,j,k=0;
     for(i=0;i<T.length;i++)
@@ -240,19 +256,12 @@ void StrCat(HString &T,char *S)
         {
             break;
         }
-        S[i] = T.ch[i];
+        S.ch[i] = T.ch[i];
+        S.length++;
     }
-
     for(j=i+1;j<T.length;j++)
     {
         T.ch[k++] = T.ch[j];
-    }
-    for(j=i;j<T.length;j++)
-    {
-        if(S[j] != ' ')
-            S[j]=' ';
-        else   
-            break;
     }
     T.length -=i;
     T.length--;

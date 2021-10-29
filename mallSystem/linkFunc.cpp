@@ -29,12 +29,6 @@ void InitList(LinkList &L)
     L = (LinkList)malloc(sizeof(Node));
     if(!L)
         exit(OVERFLOW);
-    // AddGood(L,"000","无商品","000",0.0,0.0);
-    // strcpy(d->ID,"000");
-    // strcpy(d->name,"无商品");
-    // strcpy(d->stock,s);
-    // d->purchasingPrice = input;
-    // d->sellingPrice = output;
     L->data = NULL;
     L->next=L;//循环
 }
@@ -140,7 +134,7 @@ void showList(LinkList &L)
 //输出货品的信息
 void showGood(Goods &good)
 {
-    cout<< good->ID<< " "<<good->name<< " "<< good->stock << " "<< good->purchasingPrice<< " "<< good->sellingPrice<<endl;
+    cout<< good->ID<< "\t"<<good->name<< "\t"<< good->stock << "\t"<< good->purchasingPrice<< "\t"<< good->sellingPrice<<endl;
 }
 
 //在链表的尾部插入商品信息；
@@ -162,13 +156,3 @@ void AddGood(LinkList &L,const char number[],const char n[],const char s[],doubl
     L->next = m;
     L = L->next;
 }
-
-// //添加商品的信息
-// void GoodsAddInfo(Goods &good,const char number[],const char n[],const char s[],float input,float output)
-// {
-//     strcpy(good->ID,number);
-//     strcpy(good->name,n);
-//     strcpy(good->stock,s);
-//     good->purchasingPrice = input;
-//     good->sellingPrice = output;
-// }
