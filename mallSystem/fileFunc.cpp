@@ -274,6 +274,5 @@ void getInfo(LinkList &L)
             cout<<Pi[0]<<"\t"<<Pi[1]<<"\t"<<Pi[2]<<"\t"<<Pi[3]<<"\t"<<Pi[4];
         else
             AddGood(L,Pi[0],Pi[1],Pi[2],atof(Pi[3]),atof(Pi[4]));
-
     }
 }

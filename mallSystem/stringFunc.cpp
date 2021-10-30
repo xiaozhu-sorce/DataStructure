@@ -66,14 +66,13 @@ void StrConvert(HString &T,char *chars)
     int len = T.length;
     if(strlen(chars)!=0)
         free(chars);
-    chars = (char *)malloc(len*sizeof(char));
+    // chars = (char *)malloc(len*sizeof(char));
     if(!chars)
         exit(OVERFLOW);
     for (int i = 0; i < len; i++)
     {   
         chars[i] = T.ch[i];
     }
-
 }
 
 //由串S复制得串T 

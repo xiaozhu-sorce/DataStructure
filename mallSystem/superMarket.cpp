@@ -55,8 +55,9 @@ void manage()
         }
 }
 
-void shopping(){
-        //打开文件conInCus.txt。列出超市内部可以供应的商品。
+//打开文件conInCus.txt。列出超市内部可以供应的商品。
+void shopping()
+{       
         cout<<"\t欢迎来到十月奇迹超市"<<endl;
         InitString(T[0]);
         strcpy(filename,"comInCus.txt");
@@ -86,7 +87,7 @@ int main()
         //         {
         //                 shopping();
         //         }else
-        //         {
+        //         {s
         //                 cout<<"输入有误，请重新输入。"<<endl;
         //                 flag = true;
         //         }
