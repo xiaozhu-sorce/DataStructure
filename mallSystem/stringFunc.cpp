@@ -245,7 +245,7 @@ void StrPrint(HString T)
     printf("\n");
 }
 
-// 将串T以'|'字符分割为两个字符串
+// 将串T以'|'字符分割为两个字符串，将分割出来的字符串存储在S中，断开的字符串继续存储到T中
 void StrCat(HString &T,HString &S)
 {
     int i,j,k=0;

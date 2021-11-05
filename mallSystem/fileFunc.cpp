@@ -1,4 +1,3 @@
-
 #include"stringFunc.cpp"
 #include"linkFunc.cpp"
 #define MAX_LEN 30 // 文件最大行数
@@ -271,7 +270,7 @@ void getInfo(LinkList &L)
             StrConvert(P,Pi[j]);
         }
         if(i == 1)
-            cout<<Pi[0]<<"\t"<<Pi[1]<<"\t"<<Pi[2]<<"\t"<<Pi[3]<<"\t"<<Pi[4];
+            cout<<endl<<Pi[0]<<"\t"<<Pi[1]<<" \t"<<Pi[2]<<"\t"<<Pi[3]<<"\t"<<Pi[4];
         else
             AddGood(L,Pi[0],Pi[1],Pi[2],atof(Pi[3]),atof(Pi[4]));
     }

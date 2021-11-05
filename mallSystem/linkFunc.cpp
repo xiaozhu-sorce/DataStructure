@@ -131,7 +131,7 @@ void showList(LinkList &L)
 //输出货品的信息
 void showGood(Goods &good)
 {
-    cout<< good->ID<< "\t"<<good->name<< "\t\t"<< good->stock << "\t"<< good->purchasingPrice<< "\t"<< good->sellingPrice<<endl;
+    cout<< good->ID<< "\t"<<good->name<< "     \t"<< good->stock << "\t"<< good->purchasingPrice<< "\t"<< good->sellingPrice<<endl;
 }
 
 //在链表的尾部插入商品信息；
