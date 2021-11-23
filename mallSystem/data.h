@@ -8,6 +8,7 @@ struct HString
 
 struct Data
 {
+    //int year,month,date,day;
     SString ID;
     SString name;
     SString stock;

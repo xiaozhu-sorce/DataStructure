@@ -71,6 +71,7 @@ void OpenFile()
 
 void manage()
 {
+        Status fl=TRUE;
         int k; 
         char *token = NULL;
 
@@ -84,30 +85,34 @@ void manage()
                 InitList(La);//初始化链表
                 strcpy(filename,"comInMall.txt");//打开的文件名称
                 Open();//打开文件
-                getInfo(La);//把从文件中读取的数据重新存放到链表中
-                showList(La);//用链表的形式展示
+                getInfo_Mall(La);//把从文件中读取的数据重新存放到链表中
+                showList_Mall(La);//用链表的形式展示
+                cout<<"确认请点击enter键。"; 
 
-                system("clear");
-                cout<<"请选择:"<<endl;
-                cout<<"1.下架商品\t\t2.补货"<<endl;
-                cout<<"3.进货\t\t\t4.修改商品信息"<<endl;
-                cout<<"5.模糊查询商品信息\t6.放弃修改"<<endl;
-                cin>>k;
-                switch(k)
-                {
-                        case 1: Delete();
-                                break;
-                        case 2: List();
-                                break;
-                        case 3: Insert();
-                                break;
-                        case 4: Delete();
-                                break;
-                        case 5: Copy();
-                                break;
-                        case 6: Modify();
-                                break;
-                        default: ;
+                while(getchar()=='\n' && fl){
+                        system("clear");
+                        cout<<"----------------------------------------------------------------------------------------------"<<endl;
+                        cout<<"1.下架商品\t2.补货\t3.进货\t4.修改商品信息\t5.模糊查询商品信息\t6.确认修改"<<endl;
+                        cout<<"----------------------------------------------------------------------------------------------"<<endl;
+                        cin>>k;
+                        switch(k)
+                        {
+                                case 1: Delete();
+                                        break;
+                                case 2: List();
+                                        break;
+                                case 3: Insert();
+                                        break;
+                                case 4: Modify();
+                                        break;
+                                case 5: Search();
+                                        break;
+                                case 6: Save();
+                                        break;
+                                default: fl=FALSE;
+                        }
+                        fflush(stdin);
+                        cout<<"确认请点击enter键。"; 
                 }
         }else
         {
@@ -121,17 +126,24 @@ void manage()
 //打开文件conInCus.txt。列出超市内部可以供应的商品。
 void shopping()
 {       
-        cout<<"\t欢迎来到十月奇迹超市"<<endl;
+        printf("*********************************************************\n");
+	printf("                欢迎进入超市信息管理系统\n");
+	printf("*********************************************************\n");
         InitString(T[0]);
-        strcpy(filename,"comInCus.txt");
-        Open();
-        List();
-        Save();//将T字符串清空
-        strcpy(filename,"cart.txt");
-        Open();
-        List();
-        cout<<"以上为超市供应物品，请根据商品进行按需选购。"<<endl;
+
+        LinkList La;
+        InitList(La);//初始化链表
         
+        strcpy(filename,"comInCus.txt");
+        Open();//打开文件
+        getInfo_Cus(La);//把从文件中读取的数据重新存放到链表中
+        showList_Cus(La);//用链表的形式展示
+        Save();//将T字符串清空
+        
+        // strcpy(filename,"cart.txt");
+        // Open();
+        // List();
+        cout<<"以上为超市供应物品，请根据商品进行按需选购。"<<endl;
 }
 
 int main()

@@ -3,7 +3,7 @@ void InitList(LinkList &L);
 //销毁链表
 void DestroyList(LinkList &L);
 //清空链表
-void ClearList(LinkList L);
+void ClearList(LinkList &L);
 //判断链表是否为空
 Status ListEmpty(LinkList L);
 //链表长度
@@ -13,11 +13,18 @@ Status GetElem(LinkList L,int i,Goods &e);
 //在链表中的第i个元素之前插入e
 Status ListInsert(LinkList L,int i,Goods e);
 //输出循环链表的每个节点的数据域
-void showList(LinkList &L);
+void showList_Mall(LinkList &L);
 //输出货品的信息
-void showGood(Goods &good);
+void showGood_Mall(Goods &good);
 //在链表的尾部插入商品信息；
-void AddGood(LinkList &L,const char number[],const char n[],const char s[],double input,double output);
+void AddGood_Mall(LinkList &L,const char number[],const char n[],const char s[],double input,double output);
+
+//输出循环链表的每个节点的数据域
+void showList_Cus(LinkList &L);
+//输出货品的信息
+void showGood_Cus(Goods &good);
+//在链表的尾部插入商品信息；
+void AddGood_Cus(LinkList &L,const char number[],const char n[],const char s[],double input,double output);
 
 
 //初始化循环链表
@@ -116,26 +123,26 @@ Status ListInsert(LinkList L,int i,Goods e)
     return OK;
 }
 
+//输出货品的信息
+void showGood_Mall(Goods &good)
+{
+    cout<< good->ID<< "\t"<<good->name<< "     \t"<< good->stock << "\t"<< good->purchasingPrice<< "\t"<< good->sellingPrice<<endl;
+}
+
 //输出循环链表的每个节点的数据域
-void showList(LinkList &L)
+void showList_Mall(LinkList &L)
 {
     LinkList p = L->next->next;
     while (p!=L->next)
     {
-        showGood(p->data);
+        showGood_Mall(p->data);
         p = p->next;
     }
     printf("\n");
 }
 
-//输出货品的信息
-void showGood(Goods &good)
-{
-    cout<< good->ID<< "\t"<<good->name<< "     \t"<< good->stock << "\t"<< good->purchasingPrice<< "\t"<< good->sellingPrice<<endl;
-}
-
 //在链表的尾部插入商品信息；
-void AddGood(LinkList &L,const char number[],const char n[],const char s[],double input,double output)
+void AddGood_Mall(LinkList &L,const char number[],const char n[],const char s[],double input,double output)
 {
     L->next->data++;
     LinkList p = L->next,m;
@@ -147,6 +154,44 @@ void AddGood(LinkList &L,const char number[],const char n[],const char s[],doubl
     strcpy(e->name,n);
     strcpy(e->stock,s);
     e->purchasingPrice = input;
+    e->sellingPrice = output;
+    m->data = e;
+    m->next = p;
+    L->next = m;
+    L = L->next;
+}
+
+
+
+//输出货品的信息
+void showGood_Cus(Goods &good)
+{
+    cout<< good->ID<< "\t"<<good->name<< "     \t"<< good->sellingPrice<<endl;
+}
+
+//输出循环链表的每个节点的数据域
+void showList_Cus(LinkList &L)
+{
+    LinkList p = L->next->next;
+    while (p!=L->next)
+    {
+        showGood_Cus(p->data);
+        p = p->next;
+    }
+    printf("\n");
+}
+
+//在链表的尾部插入商品信息；
+void AddGood_Cus(LinkList &L,const char number[],const char n[],double output)
+{
+    L->next->data++;
+    LinkList p = L->next,m;
+    Goods e;
+    m = (LinkList)malloc(sizeof(Node));
+    e = (Goods)malloc(sizeof(Data));
+
+    strcpy(e->ID,number);
+    strcpy(e->name,n);
     e->sellingPrice = output;
     m->data = e;
     m->next = p;

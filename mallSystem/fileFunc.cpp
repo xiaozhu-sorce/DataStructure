@@ -5,6 +5,7 @@
 #define NAME_LEN 20 // 文件名最大长度(包括盘符、路径)+1
 
 HString T[MAX_LEN];
+HString T2[MAX_LEN];
 char str[LINE_LEN],filename[NAME_LEN]="";
 FILE *fp;
 int n=1; // 文本行数
@@ -45,6 +46,7 @@ void Open()
                 return; 
             }
             StrAssign(T[n],str);
+            StrAssign(T2[n],str);
             n++; 
         }
         fclose(fp); // 关闭文件 
@@ -76,7 +78,7 @@ void Insert()
     if(n>=l-1&&l>0)
     {
         for(i=n-1;i>=l-1;i--)
-            T[i+m]=T[i];
+            StrCopy(T[i+m],T[i]);
         n+=m; 
         printf("请顺序输入待插入内容:\n"); 
         for(i=l-1;i<l-1+m;i++)
@@ -89,18 +91,31 @@ void Insert()
     else printf("行超出范围\n");
 }
 
+//最后一行插入（商品购买）
+void Buy()
+{
+    if(n+1 > MAX_LEN){
+        cout<<"商品购买过多～"<<endl;
+        return;
+    }
+    cin >> str;
+    InitString(T[n]);
+    StrAssign(T[n],str);
+}
+
 // 删除行
 void Delete()
 { 
     int i,l,m; 
     printf("从第l行起删除m行,请输入l m: "); 
-    scanf("%d%d",&l,&m);
+    scanf("%d %d",&l,&m);
     if(n>=l+m-1&&l>0)
     {
         for(i=l-1+m;i<n;i++)
         {
-            free(T[i-m].ch);
-            T[i-m]=T[i];
+            if(!T[i-m].ch)
+                free(T[i-m].ch);
+            StrCopy(T[i-m],T[i]);
         }
         for(i=n-m;i<n;i++)
             InitString(T[i]);
@@ -159,7 +174,7 @@ void Search()
     int i,k,f=1; // f为继续查找标志 
     char b[2];
     HString s; 
-    printf("请输入待查找的字符串: "); 
+    printf("请输入待查找的物品任意信息: "); 
     scanf("%s%*c",str); 
     InitString(s);
     StrAssign(s,str); 
@@ -251,11 +266,16 @@ void Save()
 
 
 // 使用链表读取文件内部信息，将其中一行的数据存放在一个链表的节点中
-void getInfo(LinkList &L)
+void getInfo_Mall(LinkList &L)
 {
     int i,j;
     char *Pi[5];
     HString P;
+    ClearList(L);
+
+    for(i = 1;i < n ;i++){
+        StrCopy(T2[i],T[i]);
+    }
     
     for(i = 1;i<n;i++)
     {
@@ -266,12 +286,43 @@ void getInfo(LinkList &L)
             Pi[j] = (char *)malloc(StrLength(T[i])/4*sizeof(char));
             if(!P.ch)
                 exit(OVERFLOW);
-            StrCat(T[i],P);
+            StrCat(T2[i],P);
             StrConvert(P,Pi[j]);
         }
         if(i == 1)
             cout<<endl<<Pi[0]<<"\t"<<Pi[1]<<" \t"<<Pi[2]<<"\t"<<Pi[3]<<"\t"<<Pi[4];
         else
-            AddGood(L,Pi[0],Pi[1],Pi[2],atof(Pi[3]),atof(Pi[4]));
+            AddGood_Mall(L,Pi[0],Pi[1],Pi[2],atof(Pi[3]),atof(Pi[4]));
+    }
+}
+
+// 使用链表读取文件内部信息，将其中一行的数据存放在一个链表的节点中
+void getInfo_Cus(LinkList &L)
+{
+    int i,j;
+    char *Pi[3];
+    HString P;
+    ClearList(L);
+
+    for(i = 1;i < n ;i++){
+        StrCopy(T2[i],T[i]);
+    }
+    
+    for(i = 1;i<n;i++)
+    {
+        for(j=0;j<3;j++)
+        {
+            InitString(P);
+            P.ch = (char *)malloc(StrLength(T[i])/4*sizeof(char));
+            Pi[j] = (char *)malloc(StrLength(T[i])/4*sizeof(char));
+            if(!P.ch)
+                exit(OVERFLOW);
+            StrCat(T2[i],P);
+            StrConvert(P,Pi[j]);
+        }
+        if(i == 1)
+            cout<<endl<<Pi[0]<<"\t"<<Pi[1]<<"\t"<<Pi[2];
+        else
+            AddGood_Cus(L,Pi[0],Pi[1],atof(Pi[2]));
     }
 }
