@@ -83,4 +83,3 @@ void P2_InsertSort(SqList &L)
         L.r[i] = d[(i+first-1) % L.length];
     }
 }
-

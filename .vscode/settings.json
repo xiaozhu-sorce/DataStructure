@@ -13,6 +13,9 @@
         "__string": "cpp",
         "string": "cpp",
         "string_view": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "complex": "cpp",
+        "ios": "cpp",
+        "locale": "cpp"
     }
 }

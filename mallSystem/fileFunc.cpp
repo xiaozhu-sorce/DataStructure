@@ -37,9 +37,10 @@ void Open()
     fp=fopen(filename,"r"); // 以读的方式打开文件
     if(fp) // 已存在此文件
     {
+        n = 1;
         while(fgets(str,LINE_LEN,fp)) // 由文件读入1行字符存储到str中 
         {
-            // str[strlen(str)-1]=0; // 将换行符10强制改为串结束符0 
+            str[strlen(str)-1]=0; // 将换行符10强制改为串结束符0 
             if(n>=MAX_LEN)
             {
                 printf("文件太大\n");
@@ -91,16 +92,35 @@ void Insert()
     else printf("行超出范围\n");
 }
 
+
+void Insert(int l,int m)
+{ 
+    int i;
+    if(n+m>MAX_LEN)
+    {
+        printf("插入行太多\n");
+        return; 
+    }
+    if(n>=l-1&&l>0)
+    {
+        for(i=n-1;i>=l-1;i--)
+            StrCopy(T[i+m],T[i]);
+        n+=m; 
+        cout<<"请按照以下格式输入您需要购买的商品信息：编号|商品名称|数量|售价"<<endl;
+        for(i=l-1;i<l-1+m;i++)
+        {
+            cin >> str;
+            InitString(T[i]);
+            StrAssign(T[i],str);
+        } 
+    }
+    else printf("行超出范围\n");
+}
+
 //最后一行插入（商品购买）
 void Buy()
 {
-    if(n+1 > MAX_LEN){
-        cout<<"商品购买过多～"<<endl;
-        return;
-    }
-    cin >> str;
-    InitString(T[n]);
-    StrAssign(T[n],str);
+    Insert(n+1,1);
 }
 
 // 删除行
@@ -256,7 +276,7 @@ void Save()
         { // 依次将每行存入文件
             for(j=0;j<T[i].length;j++) // 依次存入每个字符 
                 fputc(T[i].ch[j],fp);
-            // fputc(10,fp); // 存入换行符
+            fputc(10,fp); // 存入换行符
             ClearString(T[i]); // 释放串空间 
         }
         fclose(fp); // 关闭文件 
@@ -324,5 +344,35 @@ void getInfo_Cus(LinkList &L)
             cout<<endl<<Pi[0]<<"\t"<<Pi[1]<<"\t"<<Pi[2];
         else
             AddGood_Cus(L,Pi[0],Pi[1],atof(Pi[2]));
+    }
+}
+
+void getInfo_Cart(LinkList &L)
+{
+    int i,j;
+    char *Pi[4];
+    HString P;
+    ClearList(L);
+
+    for(i = 1;i < n ;i++){
+        StrCopy(T2[i],T[i]);
+    }
+    
+    for(i = 1;i<n;i++)
+    {
+        for(j=0;j<3;j++)
+        {
+            InitString(P);
+            P.ch = (char *)malloc(StrLength(T[i])/4*sizeof(char));
+            Pi[j] = (char *)malloc(StrLength(T[i])/4*sizeof(char));
+            if(!P.ch)
+                exit(OVERFLOW);
+            StrCat(T2[i],P);
+            StrConvert(P,Pi[j]);
+        }
+        if(i == 1)
+            cout<<endl<<Pi[0]<<"\t"<<Pi[1]<<"\t"<<Pi[2]<<"\t"<<Pi[3];
+        else
+            AddGood_Cart(L,Pi[0],Pi[1],Pi[2],atof(Pi[3]));
     }
 }

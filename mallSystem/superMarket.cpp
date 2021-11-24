@@ -27,6 +27,7 @@ char *GetPasswd()
     return passwd;  
 }  
 
+//打开文件的基本操作
 void OpenFile()
 {
         Status s=TRUE;
@@ -123,9 +124,23 @@ void manage()
 
 }
 
+
+//根据文件内容打印发票（某个客人的商品清单）
+void Print(LinkList &La){
+        time_t t;
+        struct tm * lt;
+        time (&t);
+        lt = localtime (&t);
+        //printf("当前时间为：%d/%d/%d %d:%d:%d\n",lt->tm_year+1900, 1+lt->tm_mon, lt->tm_mday, lt->tm_hour, lt->tm_min, lt->tm_sec);
+        InitList(La);
+        getInfo_Cart(La);
+        showList_Cart(La);
+}
+
 //打开文件conInCus.txt。列出超市内部可以供应的商品。
 void shopping()
 {       
+        int a,b;
         printf("*********************************************************\n");
 	printf("                欢迎进入超市信息管理系统\n");
 	printf("*********************************************************\n");
@@ -140,10 +155,25 @@ void shopping()
         showList_Cus(La);//用链表的形式展示
         Save();//将T字符串清空
         
-        // strcpy(filename,"cart.txt");
-        // Open();
-        // List();
-        cout<<"以上为超市供应物品，请根据商品进行按需选购。"<<endl;
+        strcpy(filename,"cart.txt");
+        Open();
+        while(1){
+                Buy();
+                cout<<"您是否要继续购买商品？(继续购买输入1，否则输入2)"<<endl;
+                cin >> a;
+                if(a == 2){
+                        cout<<"请问您是否确认需要购买一下商品"<<endl;
+                        List();
+                        cout<<"确认请输入Enter键，撤销输入任意字符"<<endl;
+                        fflush(stdin);
+                        if(getchar() == '\n'){
+                                Print(La);
+                                Save();
+                        }
+                        cout<<"谢谢惠顾！"<<endl;
+                        break;
+                }
+        }
 }
 
 int main()

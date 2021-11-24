@@ -5,6 +5,7 @@
 #include<math.h>
 #include<fstream>
 #include<iostream>
+#include<time.h>
 using namespace std;
 
 #define TRUE 1

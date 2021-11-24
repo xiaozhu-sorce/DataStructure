@@ -163,13 +163,13 @@ void AddGood_Mall(LinkList &L,const char number[],const char n[],const char s[],
 
 
 
-//输出货品的信息
+//输出顾客货品的信息
 void showGood_Cus(Goods &good)
 {
     cout<< good->ID<< "\t"<<good->name<< "     \t"<< good->sellingPrice<<endl;
 }
 
-//输出循环链表的每个节点的数据域
+//输出顾客的每个节点的数据域
 void showList_Cus(LinkList &L)
 {
     LinkList p = L->next->next;
@@ -192,6 +192,43 @@ void AddGood_Cus(LinkList &L,const char number[],const char n[],double output)
 
     strcpy(e->ID,number);
     strcpy(e->name,n);
+    e->sellingPrice = output;
+    m->data = e;
+    m->next = p;
+    L->next = m;
+    L = L->next;
+}
+
+
+//输出货品的信息
+void showGood_Cart(Goods &good)
+{
+    cout<< good->ID<< "\t"<<good->name<< "     \t"<< good->stock<< "\t"<< good->sellingPrice<<endl;
+}
+
+//输出循环链表的每个节点的数据域
+void showList_Cart(LinkList &L)
+{
+    LinkList p = L->next->next;
+    while (p!=L->next)
+    {
+        showGood_Cart(p->data);
+        p = p->next;
+    }
+    printf("\n");
+}
+
+void AddGood_Cart(LinkList &L,const char number[],const char n[],const char s[],double output)
+{
+    L->next->data++;
+    LinkList p = L->next,m;
+    Goods e;
+    m = (LinkList)malloc(sizeof(Node));
+    e = (Goods)malloc(sizeof(Data));
+
+    strcpy(e->ID,number);
+    strcpy(e->name,n);
+    strcpy(e->stock,s);
     e->sellingPrice = output;
     m->data = e;
     m->next = p;
