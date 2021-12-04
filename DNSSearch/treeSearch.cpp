@@ -9,14 +9,6 @@ typedef struct app {
 	char b[20];
 } app;
 int cout = 0;
-/*建树时用到的数据：com baidu www 220.181.27.5 # # google www 66.249.89.104 # #
- microsoft www 207.46.20.60 # # # gov whitehouse www 64.215.166.127 # #
- nasa www 210.254.57.56 # # # cn com lenovo www 219.239.195.11 # #
- sina www 218.30.13.51 # # # edu ustc www 202.38.64.2 # bbs 202.38.64.3 # #
- pku www 162.105.129.12 # bbs 162.105.204.150 # # tsinghua www 166.111.4.100 #
- ftp 166.111.8.229 # # # gov beijing www 210.73.64.10 # #
- shanghai www 61.129.65.58 # # # # #
-*/
 
 //数据保存在相同目录下的text.txt文件下;
 app *jianshu(app *bt, FILE *fp) {
