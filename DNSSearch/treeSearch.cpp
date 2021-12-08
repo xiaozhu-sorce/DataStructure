@@ -6,13 +6,11 @@ using namespace std;
 
 //树的基本数据结构
 typedef struct Node {
-	char a[20];//存放域名
+	char DNSnode[20];//存放域名
 	char IP[20];//根结点存放IP
 	struct Node *left;
 	struct Node *right;
 } Node;
-
-int count = 0;
 
 //数据保存在相同目录下的text.txt文件下;
 Node *createTree(Node *bt, FILE *fp) {
@@ -26,7 +24,7 @@ Node *createTree(Node *bt, FILE *fp) {
 			bt = (Node *)malloc(sizeof(Node));
 
 			//存放域名
-			strcpy(bt->a, a);
+			strcpy(bt->DNSnode, a);
 
 			//判读是否为叶子结点 --- 也就是判断域名开始是否为www,bbs,ftp
 			if (strcmp(a, "www") == 0 || strcmp(a, "bbs") == 0 || strcmp(a, "ftp") == 0 ) {
@@ -43,7 +41,7 @@ Node *createTree(Node *bt, FILE *fp) {
 }
 
 Node *addIP(Node *bt, char splitStr[4][20], int i, char ip[20]) {
-	if (bt != NULL && strcmp(bt->a, splitStr[i]) == 0) {
+	if (bt != NULL && strcmp(bt->DNSnode, splitStr[i]) == 0) {
 		if (i == 0) {
 			puts(bt->IP);
 			return bt;
@@ -59,7 +57,7 @@ Node *addIP(Node *bt, char splitStr[4][20], int i, char ip[20]) {
 			bt->right = NULL;
 			bt->left = NULL;
 
-			strcpy(bt->a, splitStr[i]);
+			strcpy(bt->DNSnode, splitStr[i]);
 
 			if (strcmp(splitStr[i], "www") == 0 || strcmp(splitStr[i], "bbs") == 0 || strcmp(splitStr[i], "ftp") == 0 ) {
 				strcpy(bt->IP, ip);
@@ -76,8 +74,8 @@ void renew(Node *bt, FILE *fp) {
 	if (bt == NULL) {
 		fprintf(fp, "# ");
 	} else {
-		fprintf(fp, "%s ", bt->a);
-		if (strcmp(bt->a, "www") == 0 || strcmp(bt->a, "bbs") == 0 || strcmp(bt->a, "ftp") == 0 ) {
+		fprintf(fp, "%s ", bt->DNSnode);
+		if (strcmp(bt->DNSnode, "www") == 0 || strcmp(bt->DNSnode, "bbs") == 0 || strcmp(bt->DNSnode, "ftp") == 0 ) {
 			fprintf(fp, "%s ", bt->IP);
 		}
 		renew(bt->left, fp);
@@ -88,7 +86,7 @@ void renew(Node *bt, FILE *fp) {
 //i为有几个分割出来的子字符串
 void serchIP(Node *bt, char splitStr[4][20], int i) {
 
-	if (bt != NULL && strcmp(bt->a, splitStr[i]) == 0) {
+	if (bt != NULL && strcmp(bt->DNSnode, splitStr[i]) == 0) {
 		if (i == 0) {
 			puts(bt->IP);
 			return;
