@@ -16,6 +16,18 @@
         "ostream": "cpp",
         "complex": "cpp",
         "ios": "cpp",
-        "locale": "cpp"
+        "locale": "cpp",
+        "algorithm": "cpp",
+        "compare": "cpp",
+        "memory_resource": "cpp",
+        "iterator": "cpp",
+        "memory": "cpp",
+        "numeric": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp",
+        "chrono": "cpp",
+        "streambuf": "cpp",
+        "__config": "cpp",
+        "cstring": "cpp"
     }
 }
