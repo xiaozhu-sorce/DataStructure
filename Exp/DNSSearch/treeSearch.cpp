@@ -5,29 +5,34 @@
 using namespace std;
 
 //树的基本数据结构
-typedef struct Node {
-	char DNSnode[20];//存放域名
-	char IP[20];//根结点存放IP
+typedef struct Node
+{
+	char DNSnode[20]; //存放域名
+	char IP[20];	  //根结点存放IP
 	struct Node *left;
 	struct Node *right;
 } Node;
 
 //数据保存在相同目录下的text.txt文件下;
-Node *createTree(Node *bt, FILE *fp) {
+Node *createTree(Node *bt, FILE *fp)
+{
 	char a[20];
 	//从fp打开的文件中读取格式化输入
-	if (fscanf(fp, "%s ",a) != EOF) {
-		//base case
+	if (fscanf(fp, "%s ", a) != EOF)
+	{
+		// base case
 		if (a[0] == '#')
 			bt = NULL;
-		else {
+		else
+		{
 			bt = (Node *)malloc(sizeof(Node));
 
 			//存放域名
 			strcpy(bt->DNSnode, a);
 
 			//判读是否为叶子结点 --- 也就是判断域名开始是否为www,bbs,ftp
-			if (strcmp(a, "www") == 0 || strcmp(a, "bbs") == 0 || strcmp(a, "ftp") == 0 ) {
+			if (strcmp(a, "www") == 0 || strcmp(a, "bbs") == 0 || strcmp(a, "ftp") == 0)
+			{
 				fscanf(fp, "%s ", a);
 				strcpy(bt->IP, a);
 			}
@@ -40,16 +45,23 @@ Node *createTree(Node *bt, FILE *fp) {
 	return bt;
 }
 
-Node *addIP(Node *bt, char splitStr[4][20], int i, char ip[20]) {
-	if (bt != NULL && strcmp(bt->DNSnode, splitStr[i]) == 0) {
-		if (i == 0) {
+Node *addIP(Node *bt, char splitStr[4][20], int i, char ip[20])
+{
+	if (bt != NULL && strcmp(bt->DNSnode, splitStr[i]) == 0)
+	{
+		if (i == 0)
+		{
 			puts(bt->IP);
 			return bt;
 		}
 		bt->left = addIP(bt->left, splitStr, --i, ip);
-	} else {
-		if (bt == NULL) {
-			if (i == -1) {
+	}
+	else
+	{
+		if (bt == NULL)
+		{
+			if (i == -1)
+			{
 				return bt;
 			}
 
@@ -59,23 +71,30 @@ Node *addIP(Node *bt, char splitStr[4][20], int i, char ip[20]) {
 
 			strcpy(bt->DNSnode, splitStr[i]);
 
-			if (strcmp(splitStr[i], "www") == 0 || strcmp(splitStr[i], "bbs") == 0 || strcmp(splitStr[i], "ftp") == 0 ) {
+			if (strcmp(splitStr[i], "www") == 0 || strcmp(splitStr[i], "bbs") == 0 || strcmp(splitStr[i], "ftp") == 0)
+			{
 				strcpy(bt->IP, ip);
 			}
 			bt->left = addIP(bt->left, splitStr, --i, ip);
-		} else
+		}
+		else
 			bt->right = addIP(bt->right, splitStr, i, ip);
 	}
 	return bt;
 }
 
 //将写好的数据写入文件
-void renew(Node *bt, FILE *fp) {
-	if (bt == NULL) {
+void renew(Node *bt, FILE *fp)
+{
+	if (bt == NULL)
+	{
 		fprintf(fp, "# ");
-	} else {
+	}
+	else
+	{
 		fprintf(fp, "%s ", bt->DNSnode);
-		if (strcmp(bt->DNSnode, "www") == 0 || strcmp(bt->DNSnode, "bbs") == 0 || strcmp(bt->DNSnode, "ftp") == 0 ) {
+		if (strcmp(bt->DNSnode, "www") == 0 || strcmp(bt->DNSnode, "bbs") == 0 || strcmp(bt->DNSnode, "ftp") == 0)
+		{
 			fprintf(fp, "%s ", bt->IP);
 		}
 		renew(bt->left, fp);
@@ -83,18 +102,23 @@ void renew(Node *bt, FILE *fp) {
 	}
 }
 
-//i为有几个分割出来的子字符串
-void serchIP(Node *bt, char splitStr[4][20], int i) {
+// i为有几个分割出来的子字符串
+void serchIP(Node *bt, char splitStr[4][20], int i)
+{
 
-	if (bt != NULL && strcmp(bt->DNSnode, splitStr[i]) == 0) {
-		if (i == 0) {
+	if (bt != NULL && strcmp(bt->DNSnode, splitStr[i]) == 0)
+	{
+		if (i == 0)
+		{
 			puts(bt->IP);
 			return;
 		}
 		serchIP(bt->left, splitStr, --i);
-
-	} else {
-		if (bt == NULL) {
+	}
+	else
+	{
+		if (bt == NULL)
+		{
 			cout << "找不到服务器或发生 DNS 错误" << endl;
 			return;
 		}
@@ -102,7 +126,8 @@ void serchIP(Node *bt, char splitStr[4][20], int i) {
 	}
 }
 
-int main() {
+int main()
+{
 	printf("欢迎使用IP查询!\n");
 	char str[80];
 	char ip[20];
@@ -118,13 +143,15 @@ int main() {
 	bt = createTree(bt, fp1);
 	fp2 = fopen("text.txt", "w");
 
-	//renew(bt);
-	while (ifNext != 'n') {
+	// renew(bt);
+	while (ifNext != 'n')
+	{
 		cout << "请选择功能：1:增加网址; 2:查询网址; 3:退出系统" << endl;
 		cin >> selection;
 		getchar();
 
-		if (selection == 3) {
+		if (selection == 3)
+		{
 			renew(bt, fp2);
 			exit(0);
 		}
@@ -137,29 +164,31 @@ int main() {
 		//将输入的字符串进行分解，分解字符串 str 为一组字符串，"."为分隔符。
 		token = strtok(str, ".");
 
-		while (token != NULL) {
+		while (token != NULL)
+		{
 			strcpy(splitStr[i], token);
 			i++;
 			//继续获得分割的str的下一个子字符串
 			token = strtok(NULL, ".");
 		}
 
-		switch (selection) {
-			case 1:
-				cout << "请输入ip：";
-				cin >> ip;
-				getchar();
-				bt = addIP(bt, splitStr, --i, ip);
-				break;
-			case 2:
-				serchIP(bt, splitStr, --i);
-				break;
+		switch (selection)
+		{
+		case 1:
+			cout << "请输入ip：";
+			cin >> ip;
+			getchar();
+			bt = addIP(bt, splitStr, --i, ip);
+			break;
+		case 2:
+			serchIP(bt, splitStr, --i);
+			break;
 		}
 		printf("是否继续？y/n\n");
 		cin >> ifNext;
 		getchar();
 	}
-	
+
 	renew(bt, fp2);
 	fclose(fp2);
 	fclose(fp1);
