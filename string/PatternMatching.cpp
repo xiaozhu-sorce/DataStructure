@@ -61,6 +61,11 @@ void get_next_bf(SString S,int next[]){
 //kmp算法
 int KMP(SString S,SString P,int pos,int next[]){
     get_next_bf(S,next);
+    //get_next(S,next);
+    for(int i = 1;i < P[0]+1;i++){
+        cout<<" " << next[i];
+    }
+    cout<<endl;
     int i = pos,j=1;
     if(1<=pos && pos<=S[0])
     {
@@ -97,7 +102,7 @@ int main(){
     sum2 = BF(source,pattern,1);
     cout << sum2 <<endl;
     sum3 = KMP(source,pattern,1,p);
-    cout << sum3 <<endl;
+    //cout << sum3 <<endl;
     return 0;
     
 }
