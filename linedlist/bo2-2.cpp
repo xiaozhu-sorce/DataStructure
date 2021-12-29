@@ -1,7 +1,7 @@
 //初始化链表
 void InitList(LinkList &L)
 {
-    L = (LinkList)malloc(sizeof(LinkList));
+    L = (LinkList)malloc(sizeof(Node));
     if(!L)
         exit(OVERFLOW);
     L->data = 0;
@@ -48,7 +48,8 @@ int ListLength(LinkList L)
 {
     int i=0;
     LinkList p=L->next;
-    while(p)
+    //注意是不是循环链表
+    while(p != L)
     {
         i++;
         p = p->next;
@@ -140,7 +141,7 @@ void ListAdd(LinkList &LTail,ElemType e)
 {
     LTail->next->data++;
     LinkList p = LTail->next,s;
-    s= (LinkList)malloc(sizeof(LinkList));
+    s= (LinkList)malloc(sizeof(Node));
     s->data = e;
     s->next = p;
     LTail->next = s;

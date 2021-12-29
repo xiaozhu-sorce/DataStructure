@@ -26,6 +26,5 @@ int *inorderTraversal(struct TreeNode *root, int *returnSize)
 
 int main()
 {
-
     return 0;
 }
