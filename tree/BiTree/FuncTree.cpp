@@ -20,7 +20,7 @@ void DestroyBiTree(BiTree &T)
     }
 }
 
-void CreatebiTree(BiTree &T)
+void CreateBiTree(BiTree &T)
 {
     char ch;
     cin >> ch;
@@ -30,7 +30,7 @@ void CreatebiTree(BiTree &T)
     {
         T = (BiNode *)malloc(sizeof(BiTree));
         T->val = ch;
-        CreatebiTree(T->left);
-        CreatebiTree(T->right);
+        CreateBiTree(T->left);
+        CreateBiTree(T->right);
     }
 }
