@@ -82,6 +82,8 @@
         "stdexcept": "cpp",
         "stop_token": "cpp",
         "cstdbool": "cpp",
-        "version": "cpp"
+        "version": "cpp",
+        "__tree": "cpp",
+        "set": "cpp"
     }
 }
